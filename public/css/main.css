@@ -1,0 +1,7 @@
+.btd {
+    color: red;
+}
+
+.btd:hover {
+    color: rgb(148, 7, 7);
+}

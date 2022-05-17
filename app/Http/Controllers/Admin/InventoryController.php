@@ -9,6 +9,9 @@ class InventoryController extends Controller
 {
    public function index()
    {
-      return view('admin.inventory.home');
+      $data = ['title' => 'Inventory'];
+      return view('admin.inventory.home', $data);
    }
+
+   
 }

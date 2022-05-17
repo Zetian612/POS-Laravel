@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     @include('layouts.partials.head')
@@ -16,9 +16,11 @@
     <!-- /.main sidebar container -->
 
     @include('layouts.partials.breadcrumb')
-
     <!-- Main content -->
     <div class="content">
+        @if(Session::has('message'))
+            <x-alert :type="Session::get('typealert')" :message="Session::get('message')"/>
+        @endif
         @section('content')
         @show
     </div>
@@ -32,6 +34,8 @@
     <!-- ./wrapper -->
 
     @include('layouts.partials.scripts')
+
+    @stack('scripts')
 </body>
 
 </html>

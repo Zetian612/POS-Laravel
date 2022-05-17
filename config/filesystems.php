@@ -43,6 +43,10 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'uploads' => [
+            'driver' => 'local',
+            'root' => 'C:/laragon/www/pos-sivl/public/uploads',
+        ],
 
         's3' => [
             'driver' => 's3',
