@@ -36,6 +36,10 @@
     @include('layouts.partials.scripts')
 
     @stack('scripts')
+    <script>
+        $('.alert').slideDown();
+        setTimeout(function(){$('.alert').slideUp();}, 7000);
+    </script>
 </body>
 
 </html>

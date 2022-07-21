@@ -90,4 +90,11 @@ class ProductsController extends Controller
         $product->delete();
         return redirect()->back();
     }
+
+    public function searchProducts(Request $request)
+    {
+        $products = Product::where('name', 'like', '%'.$request->search.'%')->take(8)->get();
+        return json_encode($products);
+    }
+
 }

@@ -78,10 +78,7 @@ $(function () {
     });
   });
 </script>
-<script>
-    $('.alert').slideDown();
-    setTimeout(function(){$('.alert').slideUp();}, 7000);
-</script>
+
 
 @endpush
 
