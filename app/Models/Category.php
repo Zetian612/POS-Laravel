@@ -8,7 +8,12 @@ class Category extends Model
 {
     protected $fillable = ['name'];
 
-    public function products()
+    public static function count(): int
+    {
+        return Category::all()->count();
+    }
+
+    public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Product::class);
     }

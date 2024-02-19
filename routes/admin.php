@@ -35,6 +35,7 @@ Route::post('/inventory/categories/delete/{id}', [App\Http\Controllers\Admin\Cat
 
 
 Route::get('/sales', [App\Http\Controllers\Admin\SalesController::class, 'index'])->name('sales');
+Route::get('/sales/history', [App\Http\Controllers\Admin\SalesController::class, 'history'])->name('sales.history');
 Route::post('/sales/store', [App\Http\Controllers\Admin\SalesController::class, 'store'])->name('sales.store');
 
 });

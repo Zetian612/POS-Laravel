@@ -23,31 +23,34 @@ class ProductsController extends Controller
 
     public function store(Request $request)
     {
-        $path = '/'.date('Y-m-d');
-        $fileExt = trim($request->file('image')->getClientOriginalExtension());
-        // $upload_path = Config::get('filesystems.disks.uploads.root');
-        $name = Str::slug(str_replace($fileExt, '', $request->file('image')->getClientOriginalName()));
-        $fileName = rand(1, 999).'-'.$name.'.'.$fileExt;
-        // $file_file = $upload_path.'/'.$path.''.$fileName;
-
-        $product = new Product;
-        $product->category_id = $request->category_id;
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->file_path = date('Y-m-d');
-        $product->slug = Str::slug($request->name);
-        $product->image = $fileName;
-        $product->price = $request->price;
+        try {
+            $path = '/'.date('Y-m-d');
+            $fileExt = trim($request->file('image')->getClientOriginalExtension());
+            // $upload_path = Config::get('filesystems.disks.uploads.root');
+            $name = Str::slug(str_replace($fileExt, '', $request->file('image')->getClientOriginalName()));
+            $fileName = rand(1, 999).'-'.$name.'.'.$fileExt;
+            // $file_file = $upload_path.'/'.$path.''.$fileName;
+    
+            $product = new Product;
+            $product->category_id = $request->category_id;
+            $product->name = $request->name;
+            $product->description = $request->description;
+            $product->file_path = date('Y-m-d');
+            $product->slug = Str::slug($request->name);
+            $product->image = $fileName;
+            $product->price = $request->price;
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('message', 'Something went wrong')->with('typealert', 'danger');
+        }
 
        if($product->save()){
            if($request->hasFile('image')){
             $request->image->storeAs($path, $fileName, 'uploads');
        }
        return redirect()->back()->with('message', 'Product added successfully')->with('typealert', 'success');
-       }
-         else{
+       } else{
                 return redirect()->back()->with('message', 'Something went wrong')->with('typealert', 'danger');
-            }
+        }
     }
 
     public function edit($id)

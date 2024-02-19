@@ -8,7 +8,12 @@ class Product extends Model
 {
     protected $fillable = ['category_id', 'name', 'description', 'image', 'price'];
 
-    public function category()
+    public static function count(): int
+    {
+        return Product::all()->count();
+    }
+
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);
     }

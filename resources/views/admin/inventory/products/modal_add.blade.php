@@ -52,57 +52,52 @@
 @push('scripts')
 <script>
     $(function () {
-    // $.validator.setDefaults({
-    //     submitHandler: function () {
-    //     alert( "Form successful submitted!" );
-    //     }
-    // });
-    $('#formAdd').validate({
-        rules: {
-        name: {
-            required: true,
-            minlength: 2,
-            maxlength: 40
-        },
-        description: {
-            required: true,
-            minlength: 10,
-            maxlength: 100
+        $('#formAdd').validate({
+            rules: {
+            name: {
+                required: true,
+                minlength: 2,
+                maxlength: 40
+            },
+            description: {
+                required: true,
+                minlength: 10,
+                maxlength: 100
 
-        },
-        price: {
-            required: true,
-            min: 0,
-        },
-        },
-        messages: {
-        name: {
-            required: "Please enter a name",
-            minlength: "Your name must consist of at least 2 characters",
-            maxlength: "Your name must consist of at most 40 characters"
-        },
-        description: {
-            required: "Please provide a description",
-            minlength: "Your description must be at least 10 characters long",
-            maxlength: "Your description must be at most 100 characters long"
-        },
-        price: {
-            required: "Please enter a price",
-            minlegth: "Please enter a price greater than 0",
-        }  
-        },
-        errorElement: 'span',
-        errorPlacement: function (error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.form-group').append(error);
-        },
-        highlight: function (element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
-        }
-    });
+            },
+            price: {
+                required: true,
+                min: 0,
+            },
+            },
+            messages: {
+            name: {
+                required: "Please enter a name",
+                minlength: "Your name must consist of at least 2 characters",
+                maxlength: "Your name must consist of at most 40 characters"
+            },
+            description: {
+                required: "Please provide a description",
+                minlength: "Your description must be at least 10 characters long",
+                maxlength: "Your description must be at most 100 characters long"
+            },
+            price: {
+                required: "Please enter a price",
+                minlegth: "Please enter a price greater than 0",
+            }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+            }
+        });
     });
 </script>
 @endpush

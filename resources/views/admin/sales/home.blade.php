@@ -45,19 +45,17 @@
 
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Buscar producto</label>
+                        <i class="fas fa-search"></i>
+                        <label for="searchInput">Buscar producto</label>
                         <input type="search" class="form-control form-control-border" id="searchInput"
                             placeholder="Enter a name or code">
                     </div>
-                    {{-- small cards with the search--}}
                     <div id="prods" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3">
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <template id="cards-products">
@@ -85,7 +83,7 @@
             $ 500
         </td>
         <td>
-            <input type="number" class="form-control" value="1">
+            <input id="quantity" type="number" class="form-control" value="1">
         </td>
         <td>
             $ 2500
@@ -100,7 +98,7 @@
     <div class="col-md-6  ">
         <hr>
         <h5>Total: $500</h5>
-        <button class="btn btn-primary float-right">Checkout</button>
+        <button id="checkout" class="btn btn-primary float-right">Checkout</button>
     </div>
 </template>
 
@@ -127,7 +125,6 @@
             `/api/products?search=${search}`
         ).then(res => res.json())
         .then(data => {
-            // console.log(data);
             renderProducts(data);
         });
         } else {
@@ -150,8 +147,6 @@
 
     const addCarrito = e => {
         if (e.target.classList.contains('btn-dark')) {
-            // console.log(e.target.dataset.id)
-            // console.log(e.target.parentElement)
             setCarrito(e.target.parentElement)
         }
         e.stopPropagation()
@@ -170,7 +165,7 @@
     } else {
         carrito[producto.id] = producto;
     }
-    
+
     renderCart()
 }
 
@@ -193,9 +188,8 @@
 
     const renderFooter = () => {
         footerContainer.innerHTML = '';
-        
+
         // sumar totales
-    
         const nTotal = Object.values(carrito).reduce((acc, product) => {
             return acc + (product.price * product.quantity)
         }, 0);
@@ -214,10 +208,38 @@
         }
     });
 
+    footerContainer.addEventListener('click', e => {
+        if (e.target.classList.contains('btn-primary')) {
+            checkout();
+        }
+    });
+
+
     const removeCarrito = id => {
         delete carrito[id];
         renderCart();
-    } 
+    }
+
+    const checkout = () => {
+        console.log(carrito);
+        let route = '{{ route('sales.store') }}';
+        fetch(
+            route,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(carrito)
+            }
+        ).then(data => {
+            if (data === 'success') {
+                carrito = {};
+                renderCart();
+                alert('Venta realizada');
+            }
+        });
+    }
 
 </script>
 @endpush
